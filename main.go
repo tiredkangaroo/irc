@@ -43,11 +43,6 @@ func main() {
 			return
 		}
 		defer conn.Close()
-		if err != nil {
-			http.Error(w, "failed upgrade to websocket", http.StatusInternalServerError)
-			slog.Error("upgrade to websocket", "error", err)
-			return
-		}
 
 		if err := relay(conn, irc_host); err != nil {
 			slog.Error("relay", "remote_addr", r.RemoteAddr, "host", irc_host, "error", err) // may be beyond cooked to try to even return an error back to the conn, we're giving up
