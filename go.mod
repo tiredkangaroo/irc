@@ -1,4 +1,4 @@
-module main
+module github.com/tiredkangaroo/irc
 
 go 1.24.2
 

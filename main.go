@@ -37,6 +37,11 @@ func main() {
 
 		upgrader := websocket.Upgrader{}
 		conn, err := upgrader.Upgrade(w, r, nil)
+		if err != nil {
+			http.Error(w, "failed upgrade to websocket", http.StatusInternalServerError)
+			slog.Error("upgrade to websocket", "error", err)
+			return
+		}
 		defer conn.Close()
 		if err != nil {
 			http.Error(w, "failed upgrade to websocket", http.StatusInternalServerError)
