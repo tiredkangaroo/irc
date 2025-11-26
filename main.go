@@ -27,15 +27,19 @@ func main() {
 	slog.Info("listening", "addr", listener.Addr().String())
 
 	// /proxy expects a request to upgrade to ws, and will relay data between
-	// the ws and the host. the hostport should be specified in the irc_host header.
+	// the ws and the host. the hostport should be specified in the irc_host query parameter.
 	http.HandleFunc("/proxy", func(w http.ResponseWriter, r *http.Request) {
-		irc_host := r.Header.Get("IRC_HOST")
+		irc_host := r.URL.Query().Get("irc_host")
 		if irc_host == "" {
 			http.Error(w, "no irc host specified", http.StatusBadRequest)
 			return
 		}
 
-		upgrader := websocket.Upgrader{}
+		upgrader := websocket.Upgrader{
+			CheckOrigin: func(r *http.Request) bool {
+				return true // warn: this might be bad twin
+			},
+		}
 		conn, err := upgrader.Upgrade(w, r, nil)
 		if err != nil {
 			http.Error(w, "failed upgrade to websocket", http.StatusInternalServerError)

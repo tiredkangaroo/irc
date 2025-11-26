@@ -15,7 +15,7 @@ h2 {
     @apply text-2xl font-bold;
 }
 button {
-    @apply cursor-pointer bg-[#dbffd1] text-[#384d32];
+    @apply cursor-pointer;
 }
 
 input {
