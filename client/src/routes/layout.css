@@ -1,0 +1,23 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+:root, html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+h1 {
+    @apply text-4xl font-bold;
+}
+h2 {
+    @apply text-2xl font-bold;
+}
+button {
+    @apply cursor-pointer bg-[#dbffd1] text-[#384d32];
+}
+
+input {
+    @apply px-2 bg-gray-200 border border-gray-100 text-gray-900 text-sm rounded-lg focus:ring-[#698c5f] focus:border-[#698c5f] block;
+}
